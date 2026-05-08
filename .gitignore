@@ -40,3 +40,5 @@ big_bss
 large_array
 stack
 .scala-build/
+.claude/
+.mcp.json

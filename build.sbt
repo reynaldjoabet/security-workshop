@@ -34,7 +34,13 @@ lazy val root = rootProject
       password4j,
       auth0,
       nimbusdsJoseJwt,
-      nimbusdsOauth2OidcSdk
+      nimbusdsOauth2OidcSdk,
+      hedgehogSbt,
+      hedgehogCore,
+      pureconfig,
+      pureconfigGeneric,
+      flyway,
+      rds
     )
     // exportJars defaults to true in sbt 2.x; set false if getResource("/") breaks
     // exportJars := false,

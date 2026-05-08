@@ -505,3 +505,9 @@ OIDC lets the AS and a confidential client encrypt things to each other using th
 - AS encrypting an ID token or UserInfo response to the client.
 - Client encrypting a Request Object (request / request_uri payload) to the AS.
 - JWE needs a real cryptographic key of a specific length (128/192/256 bits, sometimes 384/512). A `client_secret` is just a string — you can't feed it directly into AES. So the spec defines a deterministic derivation: hash the secret with SHA-256/384/512 and take the leftmost N bits.
+
+## What PAR buys you
+- Integrity of the request. A browser-side request can be tampered with — extensions, malicious JS, parameter pollution. A PAR request is sent direct to the AS over TLS; nothing in the browser can rewrite it.
+- Confidentiality of parameters. Things like `claims`, `authorization_details` (RAR), or rich `scope` strings don't leak into browser history, server logs, referer headers.
+- Authenticated request initiation. For confidential clients, the /par POST is authenticated (client `secret`, `mTLS`, or `private_key_jwt`). The AS knows the legitimate client started this exact flow, before the user even sees the consent screen. This kills a class of mix-up and request-injection attacks.
+- URL length. Mobile/native flows with many parameters can blow past URL limits.
