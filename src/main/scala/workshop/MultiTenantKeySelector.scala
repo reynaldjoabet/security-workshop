@@ -1,15 +1,17 @@
 package workshop
 
-import com.nimbusds.jose.JWSHeader
+import java.net.URI
+import java.security.Key
+
+import scala.jdk.CollectionConverters.*
+import scala.util.Try
+
 import com.nimbusds.jose.jwk.{JWKMatcher, JWKSelector}
 import com.nimbusds.jose.jwk.source.JWKSourceBuilder
 import com.nimbusds.jose.proc.{JWSKeySelector, SecurityContext}
-import com.nimbusds.jwt.JWTClaimsSet
+import com.nimbusds.jose.JWSHeader
 import com.nimbusds.jwt.proc.JWTClaimsSetAwareJWSKeySelector
-import java.net.URI
-import java.security.Key
-import scala.jdk.CollectionConverters.*
-import scala.util.Try
+import com.nimbusds.jwt.JWTClaimsSet
 
 trait TenantRegistry {
   def getJwksUrlForIssuer(issuer: String): Option[String]
@@ -23,7 +25,7 @@ class MultiTenantKeySelector(tenantRegistry: TenantRegistry)
       claimsSet: JWTClaimsSet,
       context: SecurityContext
   ): java.util.List[? <: Key] = {
-    val issuer = claimsSet.getIssuer
+    val issuer        = claimsSet.getIssuer
     val tenantJwksUrl = tenantRegistry
       .getJwksUrlForIssuer(issuer)
       .getOrElse(throw new IllegalArgumentException(s"Unknown tenant: $issuer"))
@@ -41,6 +43,8 @@ class MultiTenantKeySelector(tenantRegistry: TenantRegistry)
       .toList
       .asJava
   }
+
 }
+
 // Plug this into your ConfigurableJWTProcessor
 // processor.setJWTClaimsSetAwareJWSKeySelector(new MultiTenantKeySelector(registry))

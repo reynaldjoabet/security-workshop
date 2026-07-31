@@ -1,12 +1,14 @@
 package workshop
 
+import java.time.Instant
+import java.util.{Date, UUID}
+
+import scala.util.Try
+
 import com.nimbusds.jose.*
 import com.nimbusds.jose.crypto.ECDSASigner
 import com.nimbusds.jose.jwk.ECKey
 import com.nimbusds.jwt.*
-import java.time.Instant
-import java.util.{Date, UUID}
-import scala.util.Try
 
 object JARBuilder {
 
@@ -46,4 +48,5 @@ object JARBuilder {
 
   }
   // GET /authorize?client_id=...&request=<jwt>
+
 }

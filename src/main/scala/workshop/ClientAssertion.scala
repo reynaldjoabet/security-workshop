@@ -1,12 +1,14 @@
 package workshop
 
+import java.time.Instant
+import java.util.{Date, UUID}
+
+import scala.util.Try
+
 import com.nimbusds.jose.*
 import com.nimbusds.jose.crypto.ECDSASigner
 import com.nimbusds.jose.jwk.ECKey
 import com.nimbusds.jwt.*
-import java.time.Instant
-import java.util.{Date, UUID}
-import scala.util.Try
 
 object ClientAssertion {
 
@@ -14,8 +16,8 @@ object ClientAssertion {
       signingKey: ECKey
   ): Try[String] = Try {
     val claims = new JWTClaimsSet.Builder()
-      .issuer(clientId) // iss = client_id
-      .subject(clientId) // sub = client_id
+      .issuer(clientId)        // iss = client_id
+      .subject(clientId)       // sub = client_id
       .audience(tokenEndpoint) // aud = token endpoint URL
       .jwtID(UUID.randomUUID().toString)
       .issueTime(Date.from(Instant.now()))

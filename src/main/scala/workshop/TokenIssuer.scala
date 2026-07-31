@@ -1,14 +1,15 @@
 package workshop
 
-import com.nimbusds.jose.*
-import com.nimbusds.jose.crypto.ECDSASigner
-import com.nimbusds.jwt.*
-import com.nimbusds.jose.jwk.ECKey
-
 import java.time.Instant
 import java.util.{Date, UUID}
-import scala.util.Try
+
 import scala.jdk.CollectionConverters.*
+import scala.util.Try
+
+import com.nimbusds.jose.*
+import com.nimbusds.jose.crypto.ECDSASigner
+import com.nimbusds.jose.jwk.ECKey
+import com.nimbusds.jwt.*
 
 // Generating a Signed JWT (ES256) with Error Handling
 object TokenIssuer {
@@ -39,4 +40,5 @@ object TokenIssuer {
     jwt.sign(signer)
     jwt.serialize()
   }
+
 }

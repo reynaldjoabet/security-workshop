@@ -1,15 +1,10 @@
 package workshop
 
-import com.nimbusds.jose.{
-  EncryptionMethod,
-  JWEAlgorithm,
-  JWEHeader,
-  JWEObject,
-  Payload
-}
+import scala.util.Try
+
+import com.nimbusds.jose.{EncryptionMethod, JWEAlgorithm, JWEHeader, JWEObject, Payload}
 import com.nimbusds.jose.crypto.ECDHEncrypter
 import com.nimbusds.jose.jwk.ECKey
-import scala.util.Try
 
 object EphemeralEncryption {
 
@@ -30,4 +25,5 @@ object EphemeralEncryption {
     ) // ephemeral key pair generated internally
     jwe.serialize()
   }
+
 }

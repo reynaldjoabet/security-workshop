@@ -1,13 +1,16 @@
 package workshop
 
-import com.nimbusds.jose.JWSAlgorithm
-import com.nimbusds.jose.util.Base64URL
-import com.nimbusds.jwt.JWTClaimsSet
 import java.security.MessageDigest
+
+import com.nimbusds.jose.util.Base64URL
+import com.nimbusds.jose.JWSAlgorithm
+import com.nimbusds.jwt.JWTClaimsSet
 
 object IdTokenBindingValidator {
 
-  /** Validates at_hash in the ID token matches the received access token */
+  /**
+    * Validates at_hash in the ID token matches the received access token
+    */
   def validateAtHash(
       idTokenClaims: JWTClaimsSet,
       rawAccessToken: String,
@@ -26,7 +29,9 @@ object IdTokenBindingValidator {
     )
   }
 
-  /** Validates nonce to prevent replay attacks in the authorization flow */
+  /**
+    * Validates nonce to prevent replay attacks in the authorization flow
+    */
   def validateNonce(
       claims: JWTClaimsSet,
       expectedNonce: String
@@ -46,4 +51,5 @@ object IdTokenBindingValidator {
       "SHA-512"
     case _ => throw new IllegalArgumentException(s"Unsupported algorithm: $alg")
   }
+
 }

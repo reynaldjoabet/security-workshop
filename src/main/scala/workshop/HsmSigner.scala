@@ -1,16 +1,19 @@
 package workshop
 
+import java.security.{PrivateKey, Provider}
+
+import scala.util.Try
+
 import com.nimbusds.jose.{JWSAlgorithm, JWSHeader}
 import com.nimbusds.jose.crypto.ECDSASigner
 import com.nimbusds.jose.jwk.ECKey
 import com.nimbusds.jwt.{JWTClaimsSet, SignedJWT}
-import java.security.{PrivateKey, Provider}
-import scala.util.Try
 
 object HsmSigner {
 
-  /** Signs a JWT using a private key reference where the actual signing happens
-    * on the HSM hardware via the injected JCA provider.
+  /**
+    * Signs a JWT using a private key reference where the actual signing happens on the HSM hardware
+    * via the injected JCA provider.
     */
   def signWithHSM(claims: JWTClaimsSet, hsmKeyRef: PrivateKey)(using
       hsmProvider: Provider,
@@ -30,4 +33,5 @@ object HsmSigner {
     jwt.sign(signer)
     jwt.serialize()
   }
+
 }

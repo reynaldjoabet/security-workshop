@@ -1,9 +1,10 @@
 package workshop
 
-import com.nimbusds.jwt.JWTClaimsSet
 import java.security.cert.X509Certificate
 import java.security.MessageDigest
 import java.util.Base64
+
+import com.nimbusds.jwt.JWTClaimsSet
 
 object MtlsTokenBinder {
 
@@ -18,8 +19,8 @@ object MtlsTokenBinder {
       clientCert: X509Certificate
   ): Either[String, Unit] = {
     val expected = computeCertThumbprint(clientCert)
-    val cnf = Option(claims.getJSONObjectClaim("cnf"))
-    val actual = cnf.flatMap(m => Option(m.get("x5t#S256")).map(_.toString))
+    val cnf      = Option(claims.getJSONObjectClaim("cnf"))
+    val actual   = cnf.flatMap(m => Option(m.get("x5t#S256")).map(_.toString))
 
     actual match {
       case Some(thumbprint) if thumbprint == expected => Right(())
@@ -29,4 +30,5 @@ object MtlsTokenBinder {
         Left("Token is not certificate-bound — reject for FAPI compliance")
     }
   }
+
 }

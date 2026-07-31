@@ -1,11 +1,12 @@
 package migration
-import org.flywaydb.core.Flyway
+
 import org.flywaydb.core.api.output.MigrateResult
+import org.flywaydb.core.Flyway
 import pureconfig._
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider
 import software.amazon.awssdk.regions.Region
-import software.amazon.awssdk.services.rds.RdsUtilities
 import software.amazon.awssdk.services.rds.model.GenerateAuthenticationTokenRequest
+import software.amazon.awssdk.services.rds.RdsUtilities
 
 class Main {
 
@@ -25,7 +26,7 @@ class Main {
       case Right(value) => value
     }
     val rdsClient = RdsUtilities.builder().region(Region.EU_WEST_2).build()
-    val request = GenerateAuthenticationTokenRequest
+    val request   = GenerateAuthenticationTokenRequest
       .builder()
       .credentialsProvider(DefaultCredentialsProvider.builder().build())
       .hostname(config.host)
@@ -35,7 +36,7 @@ class Main {
       .build()
 
     val password = rdsClient.generateAuthenticationToken(request)
-    val url =
+    val url      =
       s"${config.url}?ssl=true&sslrootcert=${getClass.getResource("/rds-eu-west-2-bundle.pem").getPath}&sslmode=verify-full"
     val flyway = Flyway
       .configure()

@@ -10,6 +10,8 @@ trait Greeting {
 
 opaque type UserId = String
 object UserId {
-  def apply(id: String): UserId = id
+
+  def apply(id: String): UserId                = id
   extension (userId: UserId) def value: String = userId
+
 }

@@ -1,14 +1,16 @@
 package workshop
 
-import com.nimbusds.jose.{JWSHeader, JWSAlgorithm, JWSObject, Payload}
+import scala.jdk.CollectionConverters.*
+import scala.util.Try
+
+import com.nimbusds.jose.{JWSAlgorithm, JWSHeader, JWSObject, Payload}
 import com.nimbusds.jose.crypto.ECDSASigner
 import com.nimbusds.jose.jwk.ECKey
-import scala.util.Try
-import scala.jdk.CollectionConverters.*
 
 object MessageSigner {
 
-  /** Creates a detached signature for an HTTP body
+  /**
+    * Creates a detached signature for an HTTP body
     * @param httpBody
     *   The raw bytes of the HTTP request body
     * @return
@@ -26,10 +28,11 @@ object MessageSigner {
     val jws = new JWSObject(header, new Payload(httpBody))
     jws.sign(new ECDSASigner(signingKey))
 
-    val base64Payload = jws.getPayload.toBase64URL.toString
+    val base64Payload     = jws.getPayload.toBase64URL.toString
     val detachedSignature =
       jws.serialize(true) // true = serialize without payload
 
     (base64Payload, detachedSignature)
   }
+
 }

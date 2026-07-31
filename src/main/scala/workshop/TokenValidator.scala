@@ -1,19 +1,22 @@
 package workshop
 
-import com.nimbusds.jose.JWSAlgorithm
+import java.net.URI
+
+import scala.jdk.CollectionConverters.*
+import scala.util.Try
+
 import com.nimbusds.jose.jwk.source.{JWKSource, JWKSourceBuilder}
 import com.nimbusds.jose.proc.{JWSVerificationKeySelector, SecurityContext}
-import com.nimbusds.jwt.JWTClaimsSet
+import com.nimbusds.jose.JWSAlgorithm
 import com.nimbusds.jwt.proc.{
   ConfigurableJWTProcessor,
-  DefaultJWTProcessor,
-  DefaultJWTClaimsVerifier
+  DefaultJWTClaimsVerifier,
+  DefaultJWTProcessor
 }
-import java.net.URI
-import scala.util.Try
-import scala.jdk.CollectionConverters.*
+import com.nimbusds.jwt.JWTClaimsSet
 
 class TokenValidator(jwksUrl: String) {
+
   private val keySource: JWKSource[SecurityContext] =
     JWKSourceBuilder
       .create[SecurityContext](URI.create(jwksUrl).toURL())
@@ -38,10 +41,12 @@ class TokenValidator(jwksUrl: String) {
   // 2. Validation method
   def validate(token: String): Either[Throwable, JWTClaimsSet] =
     Try(processor.process(token, null)).toEither
+
 }
 
 // 3. Idiomatic Scala 3 Extension Methods for safe claim extraction
 extension (claims: JWTClaimsSet) {
+
   def getScopeList: List[String] =
     Option(claims.getStringClaim("scope"))
       .map(_.split(" ").toList)
@@ -49,6 +54,7 @@ extension (claims: JWTClaimsSet) {
 
   def getOptionalClaim(name: String): Option[String] =
     Option(claims.getStringClaim(name))
+
 }
 
 // Usage:

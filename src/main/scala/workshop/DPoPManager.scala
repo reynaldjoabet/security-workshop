@@ -1,11 +1,12 @@
 package workshop
 
+import scala.jdk.CollectionConverters.*
+import scala.util.Try
+
 import com.nimbusds.jose.*
 import com.nimbusds.jose.crypto.{ECDSASigner, ECDSAVerifier}
 import com.nimbusds.jose.jwk.{ECKey, JWK}
 import com.nimbusds.jwt.*
-import scala.jdk.CollectionConverters.*
-import scala.util.Try
 
 object DPoPManager {
 
@@ -36,7 +37,7 @@ object DPoPManager {
       httpMethod: String,
       httpUrl: String
   ): Try[Unit] = Try {
-    val proofJws = SignedJWT.parse(dpopProofToken)
+    val proofJws        = SignedJWT.parse(dpopProofToken)
     val clientPublicJwk = proofJws.getHeader.getJWK
 
     // Verify proof signature
@@ -60,4 +61,5 @@ object DPoPManager {
       "Token stealing detected: jkt mismatch"
     )
   }
+
 }

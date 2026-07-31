@@ -1,15 +1,10 @@
 package workshop
 
-import com.nimbusds.jose.{
-  JWEHeader,
-  JWEAlgorithm,
-  EncryptionMethod,
-  JWEObject,
-  Payload
-}
+import scala.util.Try
+
+import com.nimbusds.jose.{EncryptionMethod, JWEAlgorithm, JWEHeader, JWEObject, Payload}
 import com.nimbusds.jose.crypto.RSAEncrypter
 import com.nimbusds.jose.jwk.RSAKey
-import scala.util.Try
 
 object PayloadEncryption {
 
@@ -23,9 +18,10 @@ object PayloadEncryption {
         .build()
 
     val payload = new Payload(jsonPayload)
-    val jwe = new JWEObject(header, payload)
+    val jwe     = new JWEObject(header, payload)
 
     jwe.encrypt(new RSAEncrypter(recipientKey))
     jwe.serialize()
   }
+
 }

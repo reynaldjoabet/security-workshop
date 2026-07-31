@@ -1,7 +1,7 @@
 import Dependencies._
 
 ThisBuild / scalaVersion := "3.3.8"
-ThisBuild / version := "0.1.0-SNAPSHOT"
+ThisBuild / version      := "0.1.0-SNAPSHOT"
 
 ThisBuild / semanticdbEnabled := true
 
@@ -18,17 +18,11 @@ ThisBuild / scalacOptions := Seq(
   "-Wvalue-discard",
   "-Wnonunit-statement",
   "-Xlint:all",
-  "-Ysafe-init",
   "-Xcheck-macros",
   "-Xmax-inlines:64"
 )
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
-
-// ── Publishing ────────────────────────────────────────────────────────────────
-publishMavenStyle := true
-licenses := Seq(License.Apache2)
-homepage := Some(url("https://github.com/example/mcp-playground"))
 
 // ── Caching ───────────────────────────────────────────────────────────────────
 // All tasks are cached by default in sbt 2.x (local machine-wide disk cache).
@@ -41,7 +35,7 @@ homepage := Some(url("https://github.com/example/mcp-playground"))
 // ── Root project ──────────────────────────────────────────────────────────────
 lazy val root = rootProject
   .settings(
-    name := "security-workshop",
+    name                 := "security-workshop",
     libraryDependencies ++= Seq(
       munit % Test,
       bouncycastle,

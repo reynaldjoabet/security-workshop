@@ -1,10 +1,11 @@
 package workshop
 
+import scala.util.Try
+
 import com.nimbusds.jose.*
 import com.nimbusds.jose.crypto.{ECDSASigner, RSAEncrypter}
 import com.nimbusds.jose.jwk.{ECKey, RSAKey}
 import com.nimbusds.jwt.{JWTClaimsSet, SignedJWT}
-import scala.util.Try
 
 object NestedJwtIssuer {
 
@@ -32,4 +33,5 @@ object NestedJwtIssuer {
     jwe.encrypt(new RSAEncrypter(bankPublicKey))
     jwe.serialize()
   }
+
 }

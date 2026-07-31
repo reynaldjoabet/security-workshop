@@ -7,9 +7,9 @@ object Argon2Hasher {
     // 1. Configure the parameters
     val params = new Argon2Parameters.Builder(Argon2Parameters.ARGON2_id)
       .withVersion(Argon2Parameters.ARGON2_VERSION_13)
-      .withIterations(3) // Time cost
+      .withIterations(3)     // Time cost
       .withMemoryAsKB(65536) // 64MB Memory cost
-      .withParallelism(1) // Degree of parallelism
+      .withParallelism(1)    // Degree of parallelism
       .withSalt(salt)
       .build()
 
@@ -23,4 +23,5 @@ object Argon2Hasher {
 
     result
   }
+
 }

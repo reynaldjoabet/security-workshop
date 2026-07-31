@@ -1,14 +1,17 @@
 package workshop
 
-import com.nimbusds.jose.{JWEObject}
+import scala.util.Try
+
 import com.nimbusds.jose.crypto.RSADecrypter
 import com.nimbusds.jose.jwk.RSAKey
-import scala.util.Try
+import com.nimbusds.jose.JWEObject
 
 // Represents a business error or validation failure
 enum WebhookError {
+
   case ParseFailure(msg: String)
   case DecryptionFailure(msg: String)
+
 }
 
 object WebhookReceiver {
@@ -18,14 +21,15 @@ object WebhookReceiver {
   )(using privateKey: RSAKey): Either[WebhookError, String] =
     for {
       jwe <- Try(JWEObject.parse(encryptedToken)).toEither.left.map(e =>
-        WebhookError.ParseFailure(e.getMessage)
-      )
+               WebhookError.ParseFailure(e.getMessage)
+             )
       _ <- Try(jwe.decrypt(new RSADecrypter(privateKey))).toEither.left.map(e =>
-        WebhookError.DecryptionFailure(e.getMessage)
-      )
+             WebhookError.DecryptionFailure(e.getMessage)
+           )
       payload <- Option(jwe.getPayload)
-        .toRight(WebhookError.ParseFailure("Payload was null"))
+                   .toRight(WebhookError.ParseFailure("Payload was null"))
     } yield payload.toString
+
 }
 
 // Usage:
