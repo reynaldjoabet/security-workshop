@@ -8,6 +8,8 @@ import com.nimbusds.jwt.JWTClaimsSet
 
 object IdTokenBindingValidator {
 
+  private given CanEqual[JWSAlgorithm, JWSAlgorithm] = CanEqual.derived
+
   /**
     * Validates at_hash in the ID token matches the received access token
     */

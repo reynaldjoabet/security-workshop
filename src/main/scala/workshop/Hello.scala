@@ -1,7 +1,7 @@
 package workshop
 
-object Hello extends Greeting with App {
-  println(greeting)
+object Hello extends Greeting {
+  def main(args: Array[String]) = println(greeting)
 }
 
 trait Greeting {

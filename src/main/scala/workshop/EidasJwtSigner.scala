@@ -7,12 +7,15 @@ import java.security.MessageDigest
 import scala.jdk.CollectionConverters.*
 import scala.util.Try
 
+import javax.security.auth.x500.X500Principal
 import com.nimbusds.jose.*
 import com.nimbusds.jose.crypto.{RSASSASigner, RSASSAVerifier}
 import com.nimbusds.jose.util.{Base64URL, X509CertUtils}
 import com.nimbusds.jwt.{JWTClaimsSet, SignedJWT}
 
 object EidasJwtSigner {
+
+  private given CanEqual[X500Principal, X500Principal] = CanEqual.derived
 
   def signWithQSealCertificate(
       claims: JWTClaimsSet,

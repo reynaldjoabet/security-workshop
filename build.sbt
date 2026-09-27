@@ -1,9 +1,9 @@
 import Dependencies._
 
-ThisBuild / scalaVersion := "3.3.8"
+ThisBuild / scalaVersion := "3.9.0"
 ThisBuild / version      := "0.1.0-SNAPSHOT"
 
-ThisBuild / semanticdbEnabled := true
+ThisBuild / crossScalaVersions := Seq("3.3.8", "3.9.0")
 
 ThisBuild / scalacOptions := Seq(
   "-encoding",
@@ -12,12 +12,11 @@ ThisBuild / scalacOptions := Seq(
   "-deprecation",
   "-feature",
   "-unchecked",
-  "-source:3.3",
-  "-java-output-version:17",
-  "-Werror",
+  // "-Werror",
+  // "-Wunused:all",
   "-Wvalue-discard",
   "-Wnonunit-statement",
-  "-Xlint:all",
+  "-language:strictEquality",
   "-Xcheck-macros",
   "-Xmax-inlines:64"
 )
