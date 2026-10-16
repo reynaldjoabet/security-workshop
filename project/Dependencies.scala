@@ -7,13 +7,13 @@ object Dependencies {
     val munit        = "1.3.6"
     val bouncycastle = "1.86"
     val password4j   = "1.8.4"
-    val auth0        = "4.6.1"
+    val auth0        = "4.6.2"
     val nimbusJwt    = "10.10"
     val nimbusOidc   = "11.38.2"
     val hedgehog     = "0.14.0"
     val pureconfig   = "0.17.10"
     val flyway       = "13.10.0"
-    val awsV2        = "2.55.13"
+    val awsV2        = "2.55.15"
 
   }
   lazy val munit      = "org.scalameta" %% "munit"      % Versions.munit
