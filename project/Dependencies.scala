@@ -12,8 +12,8 @@ object Dependencies {
     val nimbusOidc   = "11.39"
     val hedgehog     = "0.14.0"
     val pureconfig   = "0.17.10"
-    val flyway       = "13.12.1"
-    val awsV2        = "2.57.10"
+    val flyway       = "13.12.2"
+    val awsV2        = "2.59.0"
 
   }
   lazy val munit      = "org.scalameta" %% "munit"      % Versions.munit
