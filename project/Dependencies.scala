@@ -13,7 +13,7 @@ object Dependencies {
     val hedgehog     = "0.15.1"
     val pureconfig   = "0.17.11"
     val flyway       = "13.13.0"
-    val awsV2        = "2.59.4"
+    val awsV2        = "2.59.5"
 
   }
   lazy val munit      = "org.scalameta" %% "munit"      % Versions.munit
